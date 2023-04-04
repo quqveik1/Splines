@@ -9,9 +9,7 @@ void SplinesEngine::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lP
     MainWindow* mainWnd = new MainWindow(this);
     setMainManager(mainWnd);
 
-    MultiLayCoordinatSystemWindow* coorSystem = new MultiLayCoordinatSystemWindow(this);
-    coorSystem->setMatchParent(true);
-    coorSystem->setCCells({ 100, 100 });
+    SplineControl* coorSystem = new SplineControl(this);
     mainWnd->addWindow(coorSystem);
 
 

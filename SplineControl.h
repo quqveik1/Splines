@@ -1,12 +1,18 @@
 #pragma once
-#include <Window.h>
+#include <MultiLayCoordinatSystemWindow.h>
 #include "SplineArr.cpp"
 
-struct SplineControl : Window
+struct SplineControl : MultiLayCoordinatSystemWindow
 {
     SplineArr splineArr;
+    COLORREF keyPointsColor = C_RED;
+    size_t keyPointsLayIndex = 1;
+    int keyPointsR = 5;
+    double interPolDelta = 0.001;
 
     SplineControl(AbstractAppData* _app);
 
-    virtual void onMessageRecieve(const char* name, void* data);
+    void updateScreenPoints();
+
+    virtual void onClick(Vector mp) override;
 };

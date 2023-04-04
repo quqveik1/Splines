@@ -1,5 +1,6 @@
 #pragma once
 #include "SplineControl.h"
+#include <MessageButton.cpp>
 #include <Window.cpp>
 
 SplineControl::SplineControl(AbstractAppData* _app) :
@@ -9,13 +10,18 @@ SplineControl::SplineControl(AbstractAppData* _app) :
     setMatchParent(true);
     setCCells({ 100, 100 });
 
-    splineArr.sortedPush({ 0, 0 });
-    splineArr.sortedPush(cCells);
+    pushStartPoints();
+    
+    addLay();
     
     updateScreenPoints();
-
-    addLay();
 };
+
+void SplineControl::pushStartPoints()
+{
+    splineArr.sortedPush({ 0, 0 });
+    splineArr.sortedPush(cCells);
+}
 
 void SplineControl::updateScreenPoints()
 {
@@ -38,5 +44,12 @@ void SplineControl::onClick(Vector mp)
     MultiLayCoordinatSystemWindow::onClick(mp);
     Vector coorPoint = fromPixToCell(mp);
     splineArr.sortedPush(coorPoint);
+    updateScreenPoints();
+}
+
+void SplineControl::onMessageRecieve(const char* name, void* data)
+{
+    splineArr.clear();
+    pushStartPoints();
     updateScreenPoints();
 }

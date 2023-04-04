@@ -11,11 +11,12 @@ struct SplineArr
 
     Vector calcPoint(double dindex);
 
-    size_t size();
+    size_t size() const;
     void push(Vector point);
     size_t sortedPush(Vector point);
     void sort();
-    Vector& operator[](size_t index);
-    Vector& operator[](double dindex);
+    void clear();
 
+    Vector& operator[](size_t index);
+    Vector operator[](double dindex);
 };

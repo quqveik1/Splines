@@ -12,5 +12,12 @@ void SplinesEngine::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lP
     SplineControl* coorSystem = new SplineControl(this);
     mainWnd->addWindow(coorSystem);
 
+    MessageButton* clearButton = new MessageButton(this);
+    clearButton->setText("Очистить");
+    clearButton->setReciever(coorSystem);
+    clearButton->setWrapStatus(true);
+    clearButton->setColor(C_TRANSPARENT);
+    clearButton->setTrancparencyOutput(true); 
+    mainWnd->addWindow(clearButton);
 
 }

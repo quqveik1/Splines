@@ -5,7 +5,7 @@
 #include <limits>
 
 
-size_t SplineArr::size()
+size_t SplineArr::size() const
 {
     return keyPoints.size();
 }
@@ -59,10 +59,15 @@ void SplineArr::sort()
     std::sort(keyPoints.begin(), keyPoints.end(), comparator);
 }
 
+void SplineArr::clear()
+{
+    keyPoints.clear();
+}
+
 Vector SplineArr::calcPoint(double dindex)
 {
-    size_t downIndex = floor(dindex);
-    size_t upIndex = ceil(dindex);
+    size_t downIndex = (size_t)floor(dindex);
+    size_t upIndex = (size_t)ceil(dindex);
     const double t = dindex - downIndex;
     const double t2 = t * t;
     const double t3 = t2 * t;
@@ -71,15 +76,25 @@ Vector SplineArr::calcPoint(double dindex)
     Vector p2 = {};
     Vector p3 = {};
 
-    if (downIndex >= 1)
+    
+
+    p1 = (*this)[downIndex];
+    p2 = (*this)[upIndex];
+
+    if (downIndex < 1)
+    {
+        p0 = p1;
+    }
+    else
     {
         p0 = (*this)[downIndex - 1];
     }
 
-    p1 = (*this)[(size_t)downIndex ];
-    p2 = (*this)[(size_t)upIndex];
-
-    if (upIndex + 1 < size())
+    if (upIndex + 1 >= size())
+    {
+        p3 = p2;
+    }
+    else
     {
         p3 = (*this)[upIndex + 1];
     }
@@ -102,10 +117,10 @@ Vector& SplineArr::operator[](size_t index)
     }
     return keyPoints[index];
 }
-Vector& SplineArr::operator[](double dindex)
+Vector SplineArr::operator[](double dindex)
 {
     size_t currLen = size();
-    if (isBigger (dindex + 1, currLen) || isSmaller (dindex, 0))
+    if (isBigger (dindex + 1, (double)currLen) || isSmaller (dindex, 0))
     {
         throw out_of_range("Index is out of range");
     }

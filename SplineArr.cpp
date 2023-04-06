@@ -69,14 +69,10 @@ Vector SplineArr::calcPoint(double dindex)
     size_t downIndex = (size_t)floor(dindex);
     size_t upIndex = (size_t)ceil(dindex);
     const double t = dindex - downIndex;
-    const double t2 = t * t;
-    const double t3 = t2 * t;
     Vector p0 = {};
     Vector p1 = {};
     Vector p2 = {};
     Vector p3 = {};
-
-    
 
     p1 = (*this)[downIndex];
     p2 = (*this)[upIndex];
@@ -99,13 +95,29 @@ Vector SplineArr::calcPoint(double dindex)
         p3 = (*this)[upIndex + 1];
     }
 
+    double m0 = (p2.y - p0.y) / 2,
+           m1 = (p3.y - p1.y) / 2;
 
-    double a = -0.5f * p0.y + 1.5f * p1.y - 1.5f * p2.y + 0.5f * p3.y;
-    double b = p0.y - 2.5f * p1.y + 2.0f * p2.y - 0.5f * p3.y;
-    double c = -0.5f * p0.y + 0.5f * p2.y;
+    double t2 = t * t,
+           t3 = t2 * t,
+           t3_2 = t3 * 2,
+           t2_3 = t2 * 3;
+
+    double hermite00 = t3_2 - t2_3 + 1;
+    double hermite10 = t3 - t2 * 2 + t;
+    double hermite01 = -t3_2 + t2_3;
+    double hermite11 = t3 - t2;
+
+    return  { p1.x + t * (p2.x - p1.x), hermite00 * p1.y + hermite10 * m0 + hermite01 * p2.y + hermite11 * m1 };
+
+    /*
+    double a = -0.5 * p0.y + 1.5 * p1.y - 1.5 * p2.y + 0.5 * p3.y;
+    double b = p0.y - 2.5 * p1.y + 2.0 * p2.y - 0.5 * p3.y;
+    double c = -0.5 * p0.y + 0.5 * p2.y;
     double d = p1.y;
 
-    return Vector(p1.x + t * (p2.x - p1.x), d + t * (c + t * (b + t * a)));
+    return { p1.x + t * (p2.x - p1.x), d + t * (c + t * (b + t * a)) 
+    */
 }
 
 Vector& SplineArr::operator[](size_t index)
@@ -113,7 +125,12 @@ Vector& SplineArr::operator[](size_t index)
     size_t keyPointSize = size();
     if (index >= keyPointSize)
     {
-        throw out_of_range("Index is out of range");
+        string exceptionString = {};
+        exceptionString += "Index "; 
+        exceptionString += to_string(index);
+        exceptionString += " is out of range ";
+        exceptionString += to_string(keyPointSize);
+        throw out_of_range(exceptionString);
     }
     return keyPoints[index];
 }
@@ -122,7 +139,12 @@ Vector SplineArr::operator[](double dindex)
     size_t currLen = size();
     if (isBigger (dindex + 1, (double)currLen) || isSmaller (dindex, 0))
     {
-        throw out_of_range("Index is out of range");
+        string exceptionString = {};
+        exceptionString = "Index"; 
+        exceptionString += to_string(dindex);
+        exceptionString += " is out of range ";
+        exceptionString += to_string(currLen);
+        throw out_of_range(exceptionString);
     }
     Vector ans = calcPoint(dindex);
     return ans;

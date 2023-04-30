@@ -9,4 +9,5 @@ struct SplinesEngine : AbstractAppData
         appName = "Сплайны";
     }
     virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
+    virtual void setWindowParameters(HINSTANCE hInstance);
 };

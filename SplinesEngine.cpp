@@ -3,6 +3,7 @@
 #include <MainWindow.cpp>
 #include <MultiLayCoordinatSystemWindow.cpp>
 #include "SplineControl.cpp"
+#include "resource.h"
 
 void SplinesEngine::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -19,5 +20,10 @@ void SplinesEngine::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lP
     clearButton->setColor(C_TRANSPARENT);
     clearButton->setTrancparencyOutput(true); 
     mainWnd->addWindow(clearButton);
+}
 
+void SplinesEngine::setWindowParameters(HINSTANCE hInstance)
+{
+    AbstractAppData::setWindowParameters(hInstance);
+    loadAndSetIcon(IDI_ICON2);
 }

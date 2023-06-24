@@ -3,11 +3,7 @@
 #include <AbstractApp.cpp>
 struct SplinesEngine : AbstractAppData
 {
-    SplinesEngine() :
-        AbstractAppData(NULL, "..\\TESTWIN32_GRAPHICAPP\\x64\\Debug")
-    {
-        appName = "Сплайны";
-    }
+    SplinesEngine();
     virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
     virtual void setWindowParameters(HINSTANCE hInstance);
 };

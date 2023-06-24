@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Splines"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "Kurlic"
 #define MyAppURL "https://github.com/quqveik1/Splines"
 #define MyAppExeName "Splines.exe"
@@ -26,6 +26,7 @@ OutputDir=C:\Users\Алехандро\Desktop\AlexProjects\Splines\Installer
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=yes
+SetupIconFile=C:\Users\Алехандро\Desktop\AlexProjects\Splines\DevFiles\Splines2.ico
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

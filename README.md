@@ -55,4 +55,6 @@
 
 - Откроется установщик программы, следуйте его указаниям.
 
-
+----
+- [EN](https://github.com/quqveik1/Splines/blob/main/README_EN.md)
+- [DE](https://github.com/quqveik1/Splines/blob/main/README_DE.md)

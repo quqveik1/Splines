@@ -109,15 +109,6 @@ Vector SplineArr::calcPoint(double dindex)
     double hermite11 = t3 - t2;
 
     return  { p1.x + t * (p2.x - p1.x), hermite00 * p1.y + hermite10 * m0 + hermite01 * p2.y + hermite11 * m1 };
-
-    /*
-    double a = -0.5 * p0.y + 1.5 * p1.y - 1.5 * p2.y + 0.5 * p3.y;
-    double b = p0.y - 2.5 * p1.y + 2.0 * p2.y - 0.5 * p3.y;
-    double c = -0.5 * p0.y + 0.5 * p2.y;
-    double d = p1.y;
-
-    return { p1.x + t * (p2.x - p1.x), d + t * (c + t * (b + t * a)) 
-    */
 }
 
 Vector& SplineArr::operator[](size_t index)
